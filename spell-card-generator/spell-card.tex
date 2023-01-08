@@ -11,7 +11,7 @@
 
     \begin{luacode}
         require("lualibs.lua")
-        local f = io.open('../data/spells.json', 'r')
+        local f = io.open('spells.json', 'r')
         local s = f:read('*a')
         f:close()
         luatab = utilities.json.tolua(s)
