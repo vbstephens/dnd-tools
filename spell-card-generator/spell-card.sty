@@ -1,0 +1,156 @@
+\ProvidesPackage{spell-card}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% dependencies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[paperheight=3.5in,paperwidth=2.5in,margin=0.05in]{geometry}
+\usepackage[default,scale=0.95,condensed]{roboto}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amssymb}
+\usepackage{ifthen}
+\usepackage[many]{tcolorbox}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+% colors
+\definecolor{artificerColor}{RGB}{85, 0, 85}    % dark eggplant
+\definecolor{paladinColor}{RGB}{0, 85, 85}      % dark turquoise
+\definecolor{clericColor}{RGB}{163, 113, 0}     % dark goldenrod
+\definecolor{bardColor}{RGB}{195, 0, 87}        % dark pink
+\definecolor{druidColor}{RGB}{65, 87, 27}       % dark olive green
+\definecolor{wizardColor}{RGB}{0, 0, 92}        % dark blue
+\definecolor{sorcererColor}{RGB}{100, 0, 0}     % dark red
+\definecolor{warlockColor}{RGB}{55, 0, 110}     % dark indigo
+\definecolor{rangerColor}{RGB}{0, 75, 0}        % dark green
+
+% input
+
+\newcommand{\@cardColor}{\relax}
+\newcommand{\cardColor}[1]{\gdef\@cardColor{#1}}
+
+\newcommand{\@cardName}{\relax}
+\newcommand{\cardName}[1]{\gdef\@cardName{#1}}
+
+\newcommand{\@castingTime}{\relax}
+\newcommand{\castingTime}[1]{\gdef\@castingTime{#1}}
+
+\newcommand{\@range}{\relax}
+\newcommand{\range}[1]{\gdef\@range{#1}}
+
+\newcommand{\@components}{\relax}
+\newcommand{\components}[1]{\gdef\@components{#1}}
+
+\newcommand{\@duration}{\relax}
+\newcommand{\duration}[1]{\gdef\@duration{#1}}
+
+\newcommand{\@concentration}{\relax}
+\newcommand{\concentration}[1]{\gdef\@concentration{#1}}
+
+\newcommand{\@ritual}{\relax}
+\newcommand{\ritual}[1]{\gdef\@ritual{#1}}
+
+\newcommand{\@materials}{\relax}
+\newcommand{\materials}[1]{\gdef\@materials{#1}}
+
+\newcommand{\@descript}{\relax}
+\newcommand{\descript}[1]{\gdef\@descript{#1}}
+
+\newcommand{\@higherlevels}{\relax}
+\newcommand{\higherlevels}[1]{\gdef\@higherlevels{#1}}
+
+\newcommand{\classvar}{\relax}
+\newcommand{\class}[1]{\gdef\classvar{#1}}
+
+\newcommand{\@level}{\relax}
+\newcommand{\level}[1]{%
+    \ifthenelse{\equal{#1}{0}}{\gdef\@level{Cantrip}}{\gdef\@level{Level #1}}}
+
+\newcommand{\@school}{\relax}
+\newcommand{\school}[1]{\gdef\@school{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\makeSpellCard}{%
+    \pagestyle{empty}
+    % set card color based on class
+    \ifthenelse{\equal{\classvar}{Artificer}}{\cardColor{artificerColor}}{%
+        \ifthenelse{\equal{\classvar}{Paladin}}{\cardColor{paladinColor}}{%
+            \ifthenelse{\equal{\classvar}{Cleric}}{\cardColor{clericColor}}{%
+                \ifthenelse{\equal{\classvar}{Wizard}}{\cardColor{wizardColor}}{%
+                    \ifthenelse{\equal{\classvar}{Sorcerer}}{\cardColor{sorcererColor}}{%
+                        \ifthenelse{\equal{\classvar}{Ranger}}{\cardColor{rangerColor}}{%
+                            \ifthenelse{\equal{\classvar}{Warlock}}{\cardColor{warlockColor}}{%
+                                \ifthenelse{\equal{\classvar}{Bard}}{\cardColor{bardColor}}{%
+                                    \ifthenelse{\equal{\classvar}{Druid}}{\cardColor{druidColor}}{%
+                                        \cardColor{black}}}}}}}}}}
+    \pagecolor{\@cardColor}
+
+    \tcbset{colback=white,colframe=\@cardColor,size=fbox,beforeafter skip=0em}
+%    \tcbset{colback=white,colframe=\@cardColor,left=0em,right=0em,top=0em,bottom=0em,boxsep=0.5em}
+
+    % card title, class, level, school
+    \begin{tcolorbox}[squeezed title=\textsc{\@cardName},colback=\@cardColor,colbacktitle=white,coltitle=black,fonttitle=\Large, halign title=center]
+        \begin{center}
+            \color{white}{\scriptsize \classvar \hfill \@level \hfill \@school}
+        \end{center}
+    \end{tcolorbox}
+    % info boxes
+    \begin{tcbraster}[raster columns=12, raster equal height, raster column skip=0.25em, raster before skip=-1em, raster row skip=0.25em]
+        % casting time
+        \begin{tcolorbox}[raster multicolumn=4]
+            \begin{center}
+                \scriptsize \textsc{casting time} \par \@castingTime
+            \end{center}
+        \end{tcolorbox}%
+        % ritual
+        \begin{tcolorbox}[raster multicolumn=3]
+            \begin{center}
+                \scriptsize \textsc{ritual} \par \@ritual
+            \end{center}
+        \end{tcolorbox}%
+        % range
+        \begin{tcolorbox}[raster multicolumn=5]
+            \begin{center}
+                \scriptsize \textsc{range} \par \@range
+            \end{center}
+        \end{tcolorbox}
+        % components
+        \begin{tcolorbox}[raster multicolumn=5]
+            \begin{center}
+                \scriptsize \textsc{components} \par \@components
+            \end{center}
+        \end{tcolorbox}
+        % duration
+        \begin{tcolorbox}[raster multicolumn=5]
+            \begin{center}
+                \scriptsize \textsc{duration} \par \@duration
+            \end{center}
+        \end{tcolorbox}
+        % concentration
+        \begin{tcolorbox}[raster multicolumn=2]
+            \begin{center}
+                \scriptsize \textsc{conc} \par \@concentration
+            \end{center}
+        \end{tcolorbox}
+    \end{tcbraster}
+    % materials
+    \ifthenelse{\equal{\@materials}{}}{}{%
+        \begin{tcolorbox}[colback=\@cardColor,before skip=-0.5em,code={\setstretch{0.5}}]
+            \color{white}{\tiny \textit{\@materials}}
+        \end{tcolorbox}
+    }
+    % description
+    \tcboxfit[height fill]{%
+        \setlength{\parskip}{0.5em}
+        \setlength{\parindent}{0em}
+        \vskip -4pt
+        \@descript
+        \ifthenelse{\equal{\@higherlevels}{}}{}{%
+            \par \textbf{At higher levels:} \@higherlevels%
+        }
+    }
+}%

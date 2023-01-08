@@ -1,0 +1,57 @@
+\documentclass{article}
+
+\usepackage{luacode}
+\usepackage{spell-card}
+\usepackage{pgffor}
+\usepackage{xstring}
+
+\begin{document}
+
+    \class{All}
+
+    \begin{luacode}
+        require("lualibs.lua")
+        local f = io.open('../data/spells.json', 'r')
+        local s = f:read('*a')
+        f:close()
+        luatab = utilities.json.tolua(s)
+        size = table.getn(luatab['spells'])
+    \end{luacode}
+
+    \foreach \s in {1,2,...,\luadirect{tex.sprint(size)}}{%
+        \ifthenelse{\equal{\classvar}{All}}{%
+            \class{\luadirect{tex.sprint(luatab['spells'][\s]['class'])}}
+            \cardName{\luadirect{tex.sprint(luatab['spells'][\s]['name'])}}
+            \castingTime{\luadirect{tex.sprint(luatab['spells'][\s]['casting_time'])}}
+            \ritual{\luadirect{tex.sprint(luatab['spells'][\s]['ritual'])}}
+            \range{\luadirect{tex.sprint(luatab['spells'][\s]['range'])}}
+            \components{\luadirect{tex.sprint(luatab['spells'][\s]['components'])}}
+            \duration{\luadirect{tex.sprint(luatab['spells'][\s]['duration'])}}
+            \concentration{\luadirect{tex.sprint(luatab['spells'][\s]['concentration'])}}
+            \materials{\luadirect{tex.sprint(luatab['spells'][\s]['material'])}}
+            \descript{\luadirect{tex.sprint(luatab['spells'][\s]['desc'])}}
+            \higherlevels{\luadirect{tex.sprint(luatab['spells'][\s]['higher_level'])}}
+            \level{\luadirect{tex.sprint(luatab['spells'][\s]['level_int'])}}
+            \school{\luadirect{tex.sprint(luatab['spells'][\s]['school'])}}
+            \makeSpellCard%
+            \pagebreak%
+        }{%
+            \IfSubStr{\luadirect{tex.sprint(luatab['spells'][\s]['class'])}}{\classvar}{%
+                \cardName{\luadirect{tex.sprint(luatab['spells'][\s]['name'])}}
+                \castingTime{\luadirect{tex.sprint(luatab['spells'][\s]['casting_time'])}}
+                \ritual{\luadirect{tex.sprint(luatab['spells'][\s]['ritual'])}}
+                \range{\luadirect{tex.sprint(luatab['spells'][\s]['range'])}}
+                \components{\luadirect{tex.sprint(luatab['spells'][\s]['components'])}}
+                \duration{\luadirect{tex.sprint(luatab['spells'][\s]['duration'])}}
+                \concentration{\luadirect{tex.sprint(luatab['spells'][\s]['concentration'])}}
+                \materials{\luadirect{tex.sprint(luatab['spells'][\s]['material'])}}
+                \descript{\luadirect{tex.sprint(luatab['spells'][\s]['desc'])}}
+                \higherlevels{\luadirect{tex.sprint(luatab['spells'][\s]['higher_level'])}}
+                \level{\luadirect{tex.sprint(luatab['spells'][\s]['level_int'])}}
+                \school{\luadirect{tex.sprint(luatab['spells'][\s]['school'])}}
+                \makeSpellCard%
+                \pagebreak%
+            }{}%
+        }%
+    }%
+\end{document}
