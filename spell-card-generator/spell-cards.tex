@@ -1,13 +1,13 @@
 \documentclass{article}
 
 \usepackage{luacode}
-\usepackage{spell-card}
+\usepackage{spell-cards}
 \usepackage{pgffor}
 \usepackage{xstring}
 
 \begin{document}
 
-    \class{All}
+    \class{Ranger}
 
     \begin{luacode}
         require("lualibs.lua")
@@ -20,7 +20,8 @@
 
     \foreach \s in {1,2,...,\luadirect{tex.sprint(size)}}{%
         \ifthenelse{\equal{\classvar}{All}}{%
-            \class{\luadirect{tex.sprint(luatab['spells'][\s]['class'])}}
+            \cardColor{black}
+            \spellClasses{\luadirect{tex.sprint(luatab['spells'][\s]['class'])}}
             \cardName{\luadirect{tex.sprint(luatab['spells'][\s]['name'])}}
             \castingTime{\luadirect{tex.sprint(luatab['spells'][\s]['casting_time'])}}
             \ritual{\luadirect{tex.sprint(luatab['spells'][\s]['ritual'])}}
@@ -33,6 +34,7 @@
             \higherlevels{\luadirect{tex.sprint(luatab['spells'][\s]['higher_level'])}}
             \level{\luadirect{tex.sprint(luatab['spells'][\s]['level_int'])}}
             \school{\luadirect{tex.sprint(luatab['spells'][\s]['school'])}}
+            \page{\luadirect{tex.sprint(luatab['spells'][\s]['page'])}}
             \makeSpellCard%
             \pagebreak%
         }{%
@@ -49,6 +51,7 @@
                 \higherlevels{\luadirect{tex.sprint(luatab['spells'][\s]['higher_level'])}}
                 \level{\luadirect{tex.sprint(luatab['spells'][\s]['level_int'])}}
                 \school{\luadirect{tex.sprint(luatab['spells'][\s]['school'])}}
+                \page{\luadirect{tex.sprint(luatab['spells'][\s]['page'])}}
                 \makeSpellCard%
                 \pagebreak%
             }{}%

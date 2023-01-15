@@ -1,0 +1,274 @@
+\ProvidesPackage{monster-cards}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% dependencies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[paperheight=5in,paperwidth=3in,margin=0.075in]{geometry}
+\usepackage[default,scale=0.95]{roboto}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amssymb}
+\usepackage{ifthen}
+\usepackage[many]{tcolorbox}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+% fonts
+\setmainfont{Roboto}
+\setsansfont{Mrs Eaves OT}
+% colors
+\definecolor{darkred}{RGB}{100, 0, 0}     % dark red
+
+% input
+
+\newcommand{\@monsterName}{\relax}
+\newcommand{\monsterName}[1]{\gdef\@monsterName{#1}}
+
+\newcommand{\@size}{\relax}
+\newcommand{\size}[1]{\gdef\@size{#1}}
+
+\newcommand{\@alignment}{\relax}
+\newcommand{\alignment}[1]{\gdef\@alignment{#1}}
+
+\newcommand{\@type}{\relax}
+\newcommand{\type}[1]{\gdef\@type{#1}}
+\newcommand{\@subtype}{\relax}
+\newcommand{\subtype}[1]{\gdef\@subtype{#1}}
+
+\newcommand{\@armorClass}{\relax}
+\newcommand{\armorClass}[1]{\gdef\@armorClass{#1}}
+\newcommand{\@armorDesc}{\relax}
+\newcommand{\armorDesc}[1]{\gdef\@armorDesc{#1}}
+
+\newcommand{\@hitPoints}{\relax}
+\newcommand{\hitPoints}[1]{\gdef\@hitPoints{#1}}
+\newcommand{\@hitDice}{\relax}
+\newcommand{\hitDice}[1]{\gdef\@hitDice{#1}}
+
+\newcommand{\@speed}{\relax}
+\newcommand{\speed}[1]{\gdef\@speed{#1}}
+\newcommand{\@walkSpeed}{\relax}
+\newcommand{\walkSpeed}[1]{\gdef\@walkSpeed{#1}}
+\newcommand{\@flySpeed}{\relax}
+\newcommand{\flySpeed}[1]{\gdef\@flySpeed{#1}}
+\newcommand{\@swimSpeed}{\relax}
+\newcommand{\swimSpeed}[1]{\gdef\@swimSpeed{#1}}
+
+\newcommand{\@STR}{\relax}
+\newcommand{\@STRmod}{\relax}
+\newcommand{\STR}[1]{\gdef\@STR{#1} \gdef\@STRmod{\luadirect{tex.sprint((#1 - 10)//2)}}}
+\newcommand{\@DEX}{\relax}
+\newcommand{\@DEXmod}{\relax}
+\newcommand{\DEX}[1]{\gdef\@DEX{#1} \gdef\@DEXmod{\luadirect{tex.sprint((#1 - 10)//2)}}}
+\newcommand{\@CON}{\relax}
+\newcommand{\@CONmod}{\relax}
+\newcommand{\CON}[1]{\gdef\@CON{#1} \gdef\@CONmod{\luadirect{tex.sprint((#1 - 10)//2)}}}
+\newcommand{\@INT}{\relax}
+\newcommand{\@INTmod}{\relax}
+\newcommand{\INT}[1]{\gdef\@INT{#1} \gdef\@INTmod{\luadirect{tex.sprint((#1 - 10)//2)}}}
+\newcommand{\@WIS}{\relax}
+\newcommand{\@WISmod}{\relax}
+\newcommand{\WIS}[1]{\gdef\@WIS{#1} \gdef\@WISmod{\luadirect{tex.sprint((#1 - 10)//2)}}}
+\newcommand{\@CHA}{\relax}
+\newcommand{\@CHAmod}{\relax}
+\newcommand{\CHA}[1]{\gdef\@CHA{#1} \gdef\@CHAmod{\luadirect{tex.sprint((#1 - 10)//2)}}}
+
+\newcommand{\@STRsave}{\relax}
+\newcommand{\STRsave}[1]{\gdef\@STRsave{#1}}
+\newcommand{\@DEXsave}{\relax}
+\newcommand{\DEXsave}[1]{\gdef\@DEXsave{#1}}
+\newcommand{\@CONsave}{\relax}
+\newcommand{\CONsave}[1]{\gdef\@CONsave{#1}}
+\newcommand{\@INTsave}{\relax}
+\newcommand{\INTsave}[1]{\gdef\@INTsave{#1}}
+\newcommand{\@WISsave}{\relax}
+\newcommand{\WISsave}[1]{\gdef\@WISsave{#1}}
+\newcommand{\@CHAsave}{\relax}
+\newcommand{\CHAsave}[1]{\gdef\@CHAsave{#1}}
+
+\newcommand{\printMod}[1]{%
+    \ifnum #1<0 #1%
+    \else +#1%
+    \fi%
+}%
+
+\newcommand{\@acrobatics}{\relax}
+\newcommand{\acrobatics}[1]{\gdef\@acrobatics{#1}}
+\newcommand{\@animalhandling}{\relax}
+\newcommand{\animalhandling}[1]{\gdef\@animalhandling{#1}}
+\newcommand{\@arcana}{\relax}
+\newcommand{\arcana}[1]{\gdef\@arcana{#1}}
+\newcommand{\@athletics}{\relax}
+\newcommand{\athletics}[1]{\gdef\@athletics{#1}}
+\newcommand{\@deception}{\relax}
+\newcommand{\deception}[1]{\gdef\@deception{#1}}
+\newcommand{\@history}{\relax}
+\newcommand{\history}[1]{\gdef\@history{#1}}
+\newcommand{\@insight}{\relax}
+\newcommand{\insight}[1]{\gdef\@insight{#1}}
+\newcommand{\@intimidation}{\relax}
+\newcommand{\intimidation}[1]{\gdef\@intimidation{#1}}
+\newcommand{\@investigation}{\relax}
+\newcommand{\investigation}[1]{\gdef\@investigation{#1}}
+\newcommand{\@medicine}{\relax}
+\newcommand{\medicine}[1]{\gdef\@medicine{#1}}
+\newcommand{\@nature}{\relax}
+\newcommand{\nature}[1]{\gdef\@nature{#1}}
+\newcommand{\@perception}{\relax}
+\newcommand{\perception}[1]{\gdef\@perception{#1}}
+\newcommand{\@performance}{\relax}
+\newcommand{\performance}[1]{\gdef\@performance{#1}}
+\newcommand{\@persuasion}{\relax}
+\newcommand{\persuasion}[1]{\gdef\@persuasion{#1}}
+\newcommand{\@religion}{\relax}
+\newcommand{\religion}[1]{\gdef\@religion{#1}}
+\newcommand{\@sleightofhand}{\relax}
+\newcommand{\sleightofhand}[1]{\gdef\@sleightofhand{#1}}
+\newcommand{\@stealth}{\relax}
+\newcommand{\stealth}[1]{\gdef\@stealth{#1}}
+\newcommand{\@survival}{\relax}
+\newcommand{\survival}[1]{\gdef\@survival{#1}}
+
+\newcommand{\@dmgVulnerabilities}{\relax}
+\newcommand{\dmgVulnerabilities}[1]{\gdef\@dmgVulnerabilities{#1}}
+\newcommand{\@dmgResistances}{\relax}
+\newcommand{\dmgResistances}[1]{\gdef\@dmgResistances{#1}}
+\newcommand{\@dmgImmunities}{\relax}
+\newcommand{\dmgImmunities}[1]{\gdef\@dmgImmunities{#1}}
+\newcommand{\@conditionImmunities}{\relax}
+\newcommand{\conditionImmunities}[1]{\gdef\@conditionImmunities{#1}}
+
+\newcommand{\@senses}{\relax}
+\newcommand{\senses}[1]{\gdef\@senses{#1}}
+\newcommand{\@languages}{\relax}
+\newcommand{\languages}[1]{\gdef\@languages{#1}}
+
+\newcommand{\@challengeRating}{\relax}
+\newcommand{\challengeRating}[1]{\gdef\@challengeRating{#1}}
+\newcommand{\@group}{\relax}
+\newcommand{\group}[1]{\gdef\@group{#1}}
+
+%\newcommand{\@abilities}{\relax}
+%\newcommand{\abilities}[1]{\gdef\@abilities{#1}}
+%\newcommand{\@actions}{\relax}
+%\newcommand{\actions}[1]{\gdef\@actions{#1}}
+%\newcommand{\@legendaryActions}{\relax}
+%\newcommand{\legendaryActions}[1]{\gdef\@legendaryActions{#1}}
+\newcommand{\@legendaryDesc}{\relax}
+\newcommand{\legendaryDesc}[1]{\gdef\@legendaryDesc{#1}}
+
+%\newcommand{\initCRlookuptable}{%
+%    \begin{luacode}
+%
+%    \end{luacode}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\makeMonsterCard}{%
+    \pagestyle{empty}
+    \setlength{\parskip}{0pt}
+    \setlength{\parindent}{0em}
+
+    \tcbset{colback=white,colframe=white,size=fbox,beforeafter skip=0em}
+
+    % title, size, type, alignment, CR
+    \begin{tcbraster}[raster columns=24, raster after skip = -1pt]
+        \begin{tcolorbox}[raster multicolumn=20,squeezed title=\@monsterName,colbacktitle=white,coltitle=darkred,fonttitle=\Large\sffamily\scshape,top=-3pt]
+            \footnotesize \textit{\@size~\@type\ifthenelse{\equal{\@subtype}{}}{,}{~(\@subtype),}~\@alignment}
+        \end{tcolorbox}
+        \begin{tcolorbox}[raster multicolumn=4,colframe=darkred]
+            \begin{center}
+            \tiny \textbf{CR}~\@challengeRating \par (\luadirect{tex.sprint(CRtoXP['\@challengeRating'])} XP)
+            \end{center}
+        \end{tcolorbox}
+    \end{tcbraster}
+
+    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+    % info
+%    \begin{center}
+    \begin{tcolorbox}[]
+        \color{darkred} \footnotesize \textbf{AC}~\@armorClass \hfill \textbf{HP}~\@hitPoints~(\@hitDice) \hfill \textbf{Speed} \@speed
+    \end{tcolorbox}
+
+    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+    % stats
+    \begin{center}
+        \begin{tcbraster}[raster columns=6, raster equal height, raster row skip=0pt, raster before skip=-10pt, raster after skip=-10pt]
+            \begin{tcolorbox}
+                \color{darkred} \footnotesize \begin{center} \textbf{STR} \par \@STR~(\printMod{\@STRmod}) \end{center}
+            \end{tcolorbox}
+            \begin{tcolorbox}
+                \color{darkred} \footnotesize \begin{center} \textbf{DEX} \par \@DEX~(\printMod{\@DEXmod}) \end{center}
+            \end{tcolorbox}
+            \begin{tcolorbox}
+                \color{darkred} \footnotesize \begin{center} \textbf{CON} \par \@CON~(\printMod{\@CONmod}) \end{center}
+            \end{tcolorbox}
+            \begin{tcolorbox}
+                \color{darkred} \footnotesize \begin{center} \textbf{INT} \par \@INT~(\printMod{\@INTmod}) \end{center}
+            \end{tcolorbox}
+            \begin{tcolorbox}
+                \color{darkred} \footnotesize \begin{center} \textbf{WIS} \par \@WIS~(\printMod{\@WISmod}) \end{center}
+            \end{tcolorbox}
+            \begin{tcolorbox}
+                \color{darkred} \footnotesize \begin{center} \textbf{CHA} \par \@CHA~(\printMod{\@CHAmod}) \end{center}
+            \end{tcolorbox}
+        \end{tcbraster}
+    \end{center}
+    \vskip -10pt
+
+    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+    % other info
+    \begin{tcolorbox}
+        \color{darkred} \footnotesize
+        \ifthenelse{\equal{\@dmgImmunities}{}}{}{\textbf{Damage Immunities}~\@dmgImmunities \par}
+        \ifthenelse{\equal{\@dmgResistances}{}}{}{\textbf{Damage Resistances}~\@dmgResistances \par}
+        \ifthenelse{\equal{\@dmgVulnerabilities}{}}{}{\textbf{Damage Vulnerabilities}~\@dmgVulnerabilities \par}
+        \ifthenelse{\equal{\@conditionImmunities}{}}{}{\textbf{Condition Immunities}~\@conditionImmunities \par}
+        \textbf{Senses}~\ifthenelse{\equal{\@senses}{}}{---}{\@senses} \par
+        \textbf{Languages}~\ifthenelse{\equal{\@languages}{}}{---}{\@languages} \par
+%        \textbf{Challenge}~\@challengeRating~(\luadirect{tex.sprint(CRtoXP['\@challengeRating'])} XP)
+    \end{tcolorbox}
+    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+    \tcboxfit[height fill, fit fontsize macros, fit basedim=8pt]{%
+
+        % abilities
+        \setlength{\parskip}{0.4em}
+        \ifthenelse{\equal{\luadirect{tex.sprint(nAbilities)}}{}}{}{%
+        \foreach \a in {1,...,\luadirect{tex.sprint(nAbilities)}}{%
+            \textit{\textbf{\luadirect{tex.sprint(abilitiestab[\a]['name'])}}}~\luadirect{tex.sprint(abilitiestab[\a]['desc'])} \par
+        }}%
+
+        \color{darkred}{\Large{\textsc{\sffamily{Actions}} \par
+        \vskip -3\parskip
+        \noindent\rule{\textwidth}{1pt}}}
+
+        % actions
+        \foreach \a in {1,...,\luadirect{tex.sprint(nActions)}}{%
+            \color{black} \textit{\textbf{\luadirect{tex.sprint(actionstab[\a]['name'])}}}~\luadirect{tex.sprint(actionstab[\a]['desc'])} \par
+        }
+    }
+
+    % legendary actions
+    \ifthenelse{\equal{\@legendaryDesc}{}}{}{%
+        \pagebreak
+        \tcboxfit[height fill]{%
+            \setlength{\parskip}{0.4em}
+            \color{darkred}{\Large{\textsc{Legendary Actions} \par
+            \vskip -3\parskip
+            \noindent\rule{\textwidth}{1pt}}}
+            \color{black} \@legendaryDesc \par
+            \foreach \a in {1,...,\luadirect{tex.sprint(nLegendaryActions)}}{%
+                \color{black} \textit{\textbf{\luadirect{tex.sprint(legendaryactionstab[\a]['name'])}}}~\luadirect{tex.sprint(legendaryactionstab[\a]['desc'])} \par
+            }
+        }
+    }
+
+}%

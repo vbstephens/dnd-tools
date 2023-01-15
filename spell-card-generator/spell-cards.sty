@@ -1,9 +1,9 @@
-\ProvidesPackage{spell-card}
+\ProvidesPackage{spell-cards}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% dependencies
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[paperheight=3.5in,paperwidth=2.5in,margin=0.05in]{geometry}
+\usepackage[paperheight=3.5in,paperwidth=2.5in,margin=0.05in, bottom=0in]{geometry}
 \usepackage[default,scale=0.95,condensed]{roboto}
 \usepackage{fontspec}
 \usepackage{microtype}
@@ -63,12 +63,18 @@
 \newcommand{\classvar}{\relax}
 \newcommand{\class}[1]{\gdef\classvar{#1}}
 
+\newcommand{\@spellClasses}{\relax}
+\newcommand{\spellClasses}[1]{\gdef\@spellClasses{#1}}
+
 \newcommand{\@level}{\relax}
 \newcommand{\level}[1]{%
     \ifthenelse{\equal{#1}{0}}{\gdef\@level{Cantrip}}{\gdef\@level{Level #1}}}
 
 \newcommand{\@school}{\relax}
 \newcommand{\school}[1]{\gdef\@school{#1}}
+
+\newcommand{\@page}{\relax}
+\newcommand{\page}[1]{\gdef\@page{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% style
@@ -90,12 +96,19 @@
     \pagecolor{\@cardColor}
 
     \tcbset{colback=white,colframe=\@cardColor,size=fbox,beforeafter skip=0em}
-%    \tcbset{colback=white,colframe=\@cardColor,left=0em,right=0em,top=0em,bottom=0em,boxsep=0.5em}
 
     % card title, class, level, school
     \begin{tcolorbox}[squeezed title=\textsc{\@cardName},colback=\@cardColor,colbacktitle=white,coltitle=black,fonttitle=\Large, halign title=center]
         \begin{center}
-            \color{white}{\scriptsize \classvar \hfill \@level \hfill \@school}
+            \ifthenelse{\equal{\classvar}{All}}{%
+                \ifthenelse{\equal{\@spellClasses}{Artificer, Bard, Cleric, Druid, Paladin, Ranger, Ritual Caster, Sorcerer, Wizard}}{%
+                        \color{white}{\tiny \textsc{All \hfill \@level \hfill \@school}}
+                }{%
+                        \color{white}{\tiny \textsc{\@spellClasses \hfill \@level \hfill \@school}}
+                }
+            }{%
+                \color{white}{\scriptsize \textsc{\classvar \hfill \@level \hfill \@school}}
+            }%
         \end{center}
     \end{tcolorbox}
     % info boxes
@@ -119,13 +132,13 @@
             \end{center}
         \end{tcolorbox}
         % components
-        \begin{tcolorbox}[raster multicolumn=5]
+        \begin{tcolorbox}[raster multicolumn=4]
             \begin{center}
                 \scriptsize \textsc{components} \par \@components
             \end{center}
         \end{tcolorbox}
         % duration
-        \begin{tcolorbox}[raster multicolumn=5]
+        \begin{tcolorbox}[raster multicolumn=6]
             \begin{center}
                 \scriptsize \textsc{duration} \par \@duration
             \end{center}
@@ -144,13 +157,15 @@
         \end{tcolorbox}
     }
     % description
-    \tcboxfit[height fill]{%
-        \setlength{\parskip}{0.5em}
+    \tcboxfit[enhanced, height fill, fit fontsize macros, size=small, bottom=0.25em, fit basedim=8pt, before={\ifthenelse{\equal{\@materials}{}}{\vskip -4pt}{}}, title=\textsc{\@page}, fonttitle=\scriptsize, colbacktitle=\@cardColor,coltitle=white, attach boxed title to bottom right, boxed title style={empty,size=fbox}]{%
+        \setlength{\parskip}{0.4em}
         \setlength{\parindent}{0em}
-        \vskip -4pt
         \@descript
         \ifthenelse{\equal{\@higherlevels}{}}{}{%
             \par \textbf{At higher levels:} \@higherlevels%
         }
     }
+%    \begin{tcolorbox}[colback=\@cardColor]
+%        \color{white}{\tiny \hfill \textsc{\@page}}
+%    \end{tcolorbox}
 }%

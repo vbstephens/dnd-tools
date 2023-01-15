@@ -1,0 +1,128 @@
+\documentclass{article}
+
+\usepackage{luacode}
+\usepackage{monster-cards}
+\usepackage{pgffor}
+\usepackage{xstring}
+
+\begin{document}
+
+    \begin{luacode}
+        require("lualibs.lua")
+        local f = io.open('monsters-COS.json', 'r')
+        local s = f:read('*a')
+        f:close()
+        luatab = utilities.json.tolua(s)
+        size = table.getn(luatab['monsters'])
+
+        CRtoXP = {}
+        CRtoXP["0"] = "0"
+        CRtoXP["1/8"] = "25"
+        CRtoXP["1/4"] = "50"
+        CRtoXP["1/2"] = "100"
+        CRtoXP["1"] = "200"
+        CRtoXP["2"] = "450"
+        CRtoXP["3"] = "700"
+        CRtoXP["4"] = "1,100"
+        CRtoXP["5"] = "1,800"
+        CRtoXP["6"] = "2,300"
+        CRtoXP["7"] = "2,900"
+        CRtoXP["8"] = "3,900"
+        CRtoXP["9"] = "5,000"
+        CRtoXP["10"] = "5,900"
+        CRtoXP["11"] = "7,200"
+        CRtoXP["12"] = "8,400"
+        CRtoXP["13"] = "10,000"
+        CRtoXP["14"] = "11,500"
+        CRtoXP["15"] = "13,000"
+        CRtoXP["16"] = "15,000"
+        CRtoXP["17"] = "18,000"
+        CRtoXP["18"] = "20,000"
+        CRtoXP["19"] = "22,000"
+        CRtoXP["20"] = "25,000"
+        CRtoXP["21"] = "33,000"
+        CRtoXP["22"] = "41,000"
+        CRtoXP["23"] = "50,000"
+        CRtoXP["24"] = "62,000"
+        CRtoXP["25"] = "75,000"
+        CRtoXP["26"] = "90,000"
+        CRtoXP["27"] = "105,000"
+        CRtoXP["28"] = "120,000"
+        CRtoXP["29"] = "135,000"
+        CRtoXP["30"] = "155,000"
+    \end{luacode}
+
+    \foreach \s in {1,2,...,\luadirect{tex.sprint(size)}}{%
+        % get data
+        \monsterName{\luadirect{tex.sprint(luatab['monsters'][\s]['name'])}}
+        \size{\luadirect{tex.sprint(luatab['monsters'][\s]['size'])}}
+        \type{\luadirect{tex.sprint(luatab['monsters'][\s]['type'])}}
+        \subtype{\luadirect{tex.sprint(luatab['monsters'][\s]['subtype'])}}
+        \alignment{\luadirect{tex.sprint(luatab['monsters'][\s]['alignment'])}}
+        \armorClass{\luadirect{tex.sprint(luatab['monsters'][\s]['armor_class'])}}
+        \armorDesc{\luadirect{tex.sprint(luatab['monsters'][\s]['armor_desc'])}}
+        \hitPoints{\luadirect{tex.sprint(luatab['monsters'][\s]['hit_points'])}}
+        \hitDice{\luadirect{tex.sprint(luatab['monsters'][\s]['hit_dice'])}}
+
+        \speed{\luadirect{tex.sprint(luatab['monsters'][\s]['speed'])}}
+        \walkSpeed{\luadirect{tex.sprint(luatab['monsters'][\s]['speed_json']['walk'])}}
+        \flySpeed{\luadirect{tex.sprint(luatab['monsters'][\s]['speed_json']['fly'])}}
+        \swimSpeed{\luadirect{tex.sprint(luatab['monsters'][\s]['speed_json']['swim'])}}
+
+        \STR{\luadirect{tex.sprint(luatab['monsters'][\s]['strength'])}}
+        \DEX{\luadirect{tex.sprint(luatab['monsters'][\s]['dexterity'])}}
+        \CON{\luadirect{tex.sprint(luatab['monsters'][\s]['constitution'])}}
+        \INT{\luadirect{tex.sprint(luatab['monsters'][\s]['intelligence'])}}
+        \WIS{\luadirect{tex.sprint(luatab['monsters'][\s]['wisdom'])}}
+        \CHA{\luadirect{tex.sprint(luatab['monsters'][\s]['charisma'])}}
+
+        \STRsave{\luadirect{tex.sprint(luatab['monsters'][\s]['strength_save'])}}
+        \DEXsave{\luadirect{tex.sprint(luatab['monsters'][\s]['dexterity_save'])}}
+        \CONsave{\luadirect{tex.sprint(luatab['monsters'][\s]['constitution_save'])}}
+        \INTsave{\luadirect{tex.sprint(luatab['monsters'][\s]['intelligence_save'])}}
+        \WISsave{\luadirect{tex.sprint(luatab['monsters'][\s]['wisdom_save'])}}
+        \CHAsave{\luadirect{tex.sprint(luatab['monsters'][\s]['charisma_save'])}}
+
+        \acrobatics{\luadirect{tex.sprint(luatab['monsters'][\s]['acrobatics'])}}
+        \animalhandling{\luadirect{tex.sprint(luatab['monsters'][\s]['animal_handling'])}}
+        \arcana{\luadirect{tex.sprint(luatab['monsters'][\s]['arcana'])}}
+        \athletics{\luadirect{tex.sprint(luatab['monsters'][\s]['athletics'])}}
+        \deception{\luadirect{tex.sprint(luatab['monsters'][\s]['deception'])}}
+        \history{\luadirect{tex.sprint(luatab['monsters'][\s]['history'])}}
+        \insight{\luadirect{tex.sprint(luatab['monsters'][\s]['insight'])}}
+        \intimidation{\luadirect{tex.sprint(luatab['monsters'][\s]['intimidation'])}}
+        \investigation{\luadirect{tex.sprint(luatab['monsters'][\s]['investigation'])}}
+        \medicine{\luadirect{tex.sprint(luatab['monsters'][\s]['medicine'])}}
+        \nature{\luadirect{tex.sprint(luatab['monsters'][\s]['nature'])}}
+        \perception{\luadirect{tex.sprint(luatab['monsters'][\s]['perception'])}}
+        \performance{\luadirect{tex.sprint(luatab['monsters'][\s]['performance'])}}
+        \persuasion{\luadirect{tex.sprint(luatab['monsters'][\s]['persuasion'])}}
+        \religion{\luadirect{tex.sprint(luatab['monsters'][\s]['religion'])}}
+        \sleightofhand{\luadirect{tex.sprint(luatab['monsters'][\s]['sleight_of_hand'])}}
+        \stealth{\luadirect{tex.sprint(luatab['monsters'][\s]['stealth'])}}
+        \survival{\luadirect{tex.sprint(luatab['monsters'][\s]['survival'])}}
+
+        \dmgVulnerabilities{\luadirect{tex.sprint(luatab['monsters'][\s]['damage_vulnerabilities'])}}
+        \dmgResistances{\luadirect{tex.sprint(luatab['monsters'][\s]['damage_resistances'])}}
+        \dmgImmunities{\luadirect{tex.sprint(luatab['monsters'][\s]['damage_immunities'])}}
+        \conditionImmunities{\luadirect{tex.sprint(luatab['monsters'][\s]['condition_immunities'])}}
+
+        \senses{\luadirect{tex.sprint(luatab['monsters'][\s]['senses'])}}
+        \languages{\luadirect{tex.sprint(luatab['monsters'][\s]['languages'])}}
+
+        \challengeRating{\luadirect{tex.sprint(luatab['monsters'][\s]['challenge_rating'])}}
+        \group{\luadirect{tex.sprint(luatab['monsters'][\s]['group'])}}
+
+        \luadirect{nAbilities = table.getn(luatab['monsters'][\s]['special_abilities'])
+            abilitiestab = luatab['monsters'][\s]['special_abilities']
+            nActions = table.getn(luatab['monsters'][\s]['actions'])
+            actionstab = luatab['monsters'][\s]['actions']
+            nLegendaryActions = table.getn(luatab['monsters'][\s]['legendary_actions'])
+            legendaryactionstab = luatab['monsters'][\s]['legendary_actions']
+        }
+        \legendaryDesc{\luadirect{tex.sprint(luatab['monsters'][\s]['legendary_desc'])}}
+
+        \makeMonsterCard%
+        \pagebreak%
+        }%
+\end{document}
