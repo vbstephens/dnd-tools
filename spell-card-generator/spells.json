@@ -1794,7 +1794,7 @@
       "page": "PHB 237",
       "range": "30 feet",
       "components": "V, S, M",
-      "material": "A pinch iron powder.",
+      "material": "A pinch of iron powder.",
       "ritual": "no",
       "duration": "Up to 1 minute",
       "concentration": "yes",
@@ -1810,7 +1810,7 @@
       "page": "PHB 237",
       "range": "30 feet",
       "components": "V, S, M",
-      "material": "A pinch iron powder.",
+      "material": "A pinch of iron powder.",
       "ritual": "no",
       "duration": "Up to 1 minute",
       "concentration": "yes",
@@ -6412,7 +6412,7 @@
       "level":"1st-level",
       "level_int": 1,
       "school":"Abjuration",
-      "class":"Druid, Ranger, Wizard"
+      "class":"Artificer, Druid, Ranger, Wizard"
     },
     {
       "name":"Aganazzar's Scorcher",
@@ -6493,7 +6493,7 @@
       "level":"1st-level",
       "level_int": 1,
       "school":"Transmutation",
-      "class":"Sorcerer, Wizard"
+      "class":"Artificer, Sorcerer, Wizard"
     },
     {
       "name":"Control Flames",
@@ -6602,7 +6602,7 @@
       "level":"4th-level",
       "level_int": 4,
       "school":"Transmutation",
-      "class":"Druid, Warlock, Wizard"
+      "class":"Artificer, Druid, Warlock, Wizard"
     },
     {
       "name":"Erupting Earth",
@@ -6635,7 +6635,7 @@
       "level":"3rd-level",
       "level_int": 3,
       "school":"Transmutation",
-      "class":"Druid, Ranger, Sorcerer, Wizard"
+      "class":"Artificer, Druid, Ranger, Sorcerer, Wizard"
     },
     {
       "name":"Frostbite",
@@ -6650,7 +6650,7 @@
       "level":"Cantrip",
       "level_int": 0,
       "school":"Evocation",
-      "class":"Druid, Sorcerer, Warlock, Wizard"
+      "class":"Artificer, Druid, Sorcerer, Warlock, Wizard"
     },
     {
       "name":"Green-Flame Blade",
@@ -6819,7 +6819,7 @@
       "level":"Cantrip",
       "level_int": 0,
       "school":"Transmutation",
-      "class":"Druid, Warlock"
+      "class":"Artificer, Druid, Warlock"
     },
     {
       "name":"Maximilian's Earthen Grasp",
@@ -6897,7 +6897,7 @@
       "level":"2nd-level",
       "level_int": 2,
       "school":"Transmutation",
-      "class":"Bard, Sorcerer, Wizard"
+      "class":"Artificer, Bard, Sorcerer, Wizard"
     },
     {
       "name":"Shape Water",
@@ -6926,7 +6926,7 @@
       "casting_time":"1 action",
       "level":"2nd-level",
       "school":"Transmutation",
-      "class":"Bard, Druid, Ritual Caster, Wizard"
+      "class":"Artificer, Bard, Druid, Ritual Caster, Wizard"
     },
     {
       "name":"Snilloc's Snowball Swarm",
@@ -6989,7 +6989,7 @@
       "level":"Cantrip",
       "level_int": 0,
       "school":"Evocation",
-      "class":"Bard, Druid, Sorcerer, Warlock, Wizard"
+      "class":"Artificer, Bard, Druid, Sorcerer, Warlock, Wizard"
     },
     {
       "name":"Tidal Wave",
@@ -7021,7 +7021,7 @@
       "level":"5th-level",
       "level_int": 5,
       "school":"Transmutation",
-      "class":"Druid, Wizard"
+      "class":"Artificer, Druid, Wizard"
     },
     {
       "name":"Vitriolic Sphere",
@@ -7385,19 +7385,18 @@
     },
     {
       "name": "Snare",
-      "desc": "",
-      "higher_level": "",
-      "casting_time": "1 action",
-      "range": "",
+      "desc": "While you cast this spell, you use the cord or rope to create a circle with a 5-foot radius on a flat surface within your reach. When you finish casting, the cord or rope disappears to become a magical trap. \\par The trap is nearly invisible and requires a successful Intelligence (Investigation) check against your spell save DC to be found. \\par The trap triggers when a Small creature or larger moves into the area protected by the spell. The triggering creature must succeed on a Dexterity saving throw or fall prone and be hoisted into the air until it hangs upside down 3 feet above the protected surface, where it is restrained. \\par The restrained creature can make a Dexterity saving throw with disadvantage at the end of each of its turns and ends the restrained effect on a success. Alternatively, another creature that can reach the restrained creature can use an action to make an Intelligence (Arcana) check against your spell save DC. On a success, the restrained effect also ends.",
+      "casting_time": "1 minute",
+      "range": "Touch",
       "components": "V, S, M",
-      "material": "",
-      "duration": "",
-      "level": "",
-      "level_int": 0,
-      "school": "",
+      "material": "30 feet of cord or rope, which is consumed by the spell",
+      "duration": "Until dispelled or triggered",
+      "level": "1st-level",
+      "level_int": 1,
+      "school": "Abjuration",
       "concentration": "no",
       "ritual": "no",
-      "class":"",
+      "class":"Artificer, Druid, Ranger, Wizard",
       "page":"XGtE 165"
     },
     {
@@ -7907,7 +7906,7 @@
       "school": "",
       "concentration": "no",
       "ritual": "no",
-      "class":"",
+      "class":"Artificer, ",
       "page":"XGtE 168"
     },
     {
@@ -8292,6 +8291,53 @@
       "concentration": "no",
       "ritual": "no",
       "class": "Bard, Sorcerer, Warlock, Wizard"
+    },
+    {
+      "name": "Kinetic Jaunt",
+      "desc": "You magically empower your movement with dancelike steps, giving yourself the following benefits for the duration: \\begin{itemize}[leftmargin=1.5em,topsep=0pt,noitemsep] \\item Your walking speed increases by 10 feet.\\item You don't provoke opportunity attacks. \\item You can move through the space of another creature, and it doesn't count as difficult terrain. If you end your turn in another creature's space, you are shunted to the last unoccupied space you occupied, and you take 1d8 force damage. \\end{itemize}",
+      "casting_time": "1 bonus action",
+      "range": "Self",
+      "components": "S",
+      "duration": "Up to 1 minute",
+      "level": "2nd-level",
+      "level_int": 2,
+      "school": "Transmutation",
+      "concentration": "yes",
+      "ritual": "no",
+      "class":"Artificer, Bard, Sorcerer, Wizard",
+      "page":"SCoC "
+    },
+    {
+      "name": "Vortex Warp",
+      "desc": "You magically twist space around another creature you can see within range. The target must succeed on a Constitution saving throw (the target can choose to fail), or the target is teleported to an unoccupied space of your choice that you can see within range. The chosen space must be on a surface or in a liquid that can support the target without the target having to squeeze.",
+      "higher_level": "When you cast this spell using a spell slot of 3rd level or higher, the range of the spell increases by 30 feet for each slot level above 2nd.",
+      "casting_time": "1 action",
+      "range": "90 feet",
+      "components": "V, S",
+      "duration": "Instantaneous",
+      "level": "2nd-level",
+      "level_int": 2,
+      "school": "Conjuration",
+      "concentration": "no",
+      "ritual": "no",
+      "class":"Artificer, Sorcerer, Wizard",
+      "page":"SCoC "
+    },
+    {
+      "name": "Ashardalon's Stride",
+      "desc": "The billowing flames of a dragon blast from your feet, granting you explosive speed. For the duration, your speed increases by 20 feet and moving doesn’t provoke opportunity attacks. \\par When you move within 5 feet of a creature or an object that isn’t being worn or carried, it takes 1d6 fire damage from your trail of heat. A creature or object can take this damage only once during a turn.",
+      "higher_level": "When you cast this spell using a spell slot of 4th level or higher, increase your speed by 5 feet for each spell slot level above 3rd. The spell deals an additional 1d6 fire damage for each slot level above 3rd.",
+      "casting_time": "1 bonus action",
+      "range": "Self",
+      "components": "V, S",
+      "duration": "Up to 1 minute",
+      "level": "3rd-level",
+      "level_int": 3,
+      "school": "Transmutation",
+      "concentration": "yes",
+      "ritual": "no",
+      "class":"Artificer, Ranger, Sorcerer, Wizard",
+      "page":"FToD "
     }
   ]
 }

@@ -15,6 +15,7 @@
 \usepackage{enumitem}
 
 % colors
+%\definecolor{artificerColor}{RGB}{220, 208, 255}    % lavender
 \definecolor{artificerColor}{RGB}{85, 0, 85}    % dark eggplant
 \definecolor{paladinColor}{RGB}{0, 85, 85}      % dark turquoise
 \definecolor{clericColor}{RGB}{163, 113, 0}     % dark goldenrod
@@ -102,7 +103,7 @@
         \begin{center}
             \ifthenelse{\equal{\classvar}{All}}{%
                 \ifthenelse{\equal{\@spellClasses}{Artificer, Bard, Cleric, Druid, Paladin, Ranger, Ritual Caster, Sorcerer, Wizard}}{%
-                        \color{white}{\tiny \textsc{All \hfill \@level \hfill \@school}}
+                        \color{white}{\scriptsize \textsc{All \hfill \@level \hfill \@school}}
                 }{%
                         \color{white}{\tiny \textsc{\@spellClasses \hfill \@level \hfill \@school}}
                 }
@@ -153,7 +154,7 @@
     % materials
     \ifthenelse{\equal{\@materials}{}}{}{%
         \begin{tcolorbox}[colback=\@cardColor,before skip=-0.5em,code={\setstretch{0.5}}]
-            \color{white}{\tiny \textit{\@materials}}
+            \color{white}{\scriptsize \textit{\@materials}}
         \end{tcolorbox}
     }
     % description
@@ -165,7 +166,4 @@
             \par \textbf{At higher levels:} \@higherlevels%
         }
     }
-%    \begin{tcolorbox}[colback=\@cardColor]
-%        \color{white}{\tiny \hfill \textsc{\@page}}
-%    \end{tcolorbox}
 }%
