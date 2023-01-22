@@ -36,14 +36,14 @@ Item card tools live in the `item-card-generator` directory. These are still und
 
 ## Acronyms
 
-- EEPC = Elemental Evil Player's Companion
 - ERLW = Eberron: Rising From The Last War
-- GGR = Guildmaster's Guide to Ravnica
+- FToD: Fizban's Treasury of Dragons
+- GGtR = Guildmaster's Guide to Ravnica
 - MM = Monster Manual
-- MMoM = Mordenkainen Presents: Monsters of the Multiverse
-- MTF = Mordenkainen's Tomb of Foes
+- MPMoM = Mordenkainen Presents: Monsters of the Multiverse
+- MToF = Mordenkainen's Tomb of Foes
 - PHB = Player's Handbook
-- SCAG = Sword Coast Adventurer's Guide
-- TCE = Tasha's Cauldron of Everything
-- VGM = Volo's Guide to Monsters
-- XGE = Xanathar's Guide to Everything
+- SCoC = Strixhaven: A Curriculum of Chaos
+- TCoE = Tasha's Cauldron of Everything
+- VGtM = Volo's Guide to Monsters
+- XGtE = Xanathar's Guide to Everything

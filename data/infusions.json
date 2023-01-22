@@ -1,0 +1,212 @@
+{
+  "infusions": [
+    {
+      "name": "Arcane Propulsion Armor",
+      "prerequisite": "14th-level artificer",
+      "item": "A suit of armor",
+      "requires_attunement": "yes",
+      "desc": "The wearer of this armor gains these benefits: \\begin{itemize}[leftmargin=1.5em,topsep=0pt,noitemsep] \\item The wearer's walking speed increases by 5 feet. \\item The armor includes gauntlets, each of which is a magic melee weapon that can be wielded only when the hand is holding nothing. The wearer is proficient with the gauntlets, and each one deals ld8 force damage on a hit and has the thrown property, with a normal range of 20 feet and a long range of 60 feet. When thrown, the gauntlet detaches and flies at the attack's target, then immediately returns to the wearer and reattaches. \\item The armor can't be removed against the wearer's will. \\item If the wearer is missing any limbs, the armor replaces those limbs-hands, arms, feet, legs, or similar appendages. The replacements function identically to the body parts they replace. \\end{itemize}",
+      "page": "TCoE 20"
+    },
+    {
+      "name": "Armor of Magical Strength",
+      "prerequisite": "2nd-level artificer",
+      "item": "A suit of armor",
+      "requires_attunement": "yes",
+      "desc": "This armor has 6 charges. The wearer can expend the armor's charges in the following ways: \\begin{itemize}[leftmargin=1.5em,topsep=0pt,noitemsep] \\item When the wearer makes a Strength check or a Strength saving throw, it can expend 1 charge to add a bonus to the roll equal to its Intelligence modifier. \\item If the creature would be knocked prone, it can use its reaction to expend 1 charge to avoid being knocked prone. \\end{itemize} The armor regains 1d6 expended charges daily at dawn.",
+      "page": "TCoE 20"
+    },
+    {
+      "name": "Boots of the Winding Path",
+      "prerequisite": "6th-level artificer",
+      "item": "A pair of boots",
+      "requires_attunement": "yes",
+      "desc": "While wearing these boots, a creature can teleport up to 15 feet as a bonus action to an unoccupied space the creature can see. The creature must have occupied that space at some point during the current turn.",
+      "page": "TCoE 21"
+    },
+    {
+      "name": "Enhanced Arcane Focus",
+      "prerequisite": "2nd-level artificer",
+      "item": "A rod, staff, or wand",
+      "requires_attunement": "yes",
+      "desc": "While holding this item, a creature gains a +1 bonus to spell attack rolls. In addition, the creature ignores half cover when making a spell attack. \\par The bonus increases to +2 when you reach 10th level in this class.",
+      "page": "TCoE 21"
+    },
+    {
+      "name": "Enhanced Defense",
+      "prerequisite": "2nd-level artificer",
+      "item": "A suit of armor or a shield",
+      "requires_attunement": "no",
+      "desc": "A creature gains a +1 bonus to Armor Class while wearing (armor) or wielding (shield) the infused item. \\par The bonus increases to +2 when you reach 10th level in this class.",
+      "page": "TCoE 21"
+    },
+    {
+      "name": "Enhanced Weapon",
+      "prerequisite": "2nd-level artificer",
+      "item": "A simple or martial weapon",
+      "requires_attunement": "no",
+      "desc": "This magic weapon grants a +l bonus to attack and damage rolls made with it. \\par The bonus increases to +2 when you reach 10th level in this class.",
+      "page": "TCoE 21"
+    },
+    {
+      "name": "Helm of Awareness",
+      "prerequisite": "10th-level artificer",
+      "item": "A helmet",
+      "requires_attunement": "yes",
+      "desc": "While wearing this helmet, a creature has advantage on initiative rolls. In addition, the wearer can't be surprised, provided it isn't incapacitated.",
+      "page": "TCoE 21"
+    },
+    {
+      "name": "Homunculus Servant",
+      "prerequisite": "2nd-level artificer",
+      "item": "A gem or crystal worth at least 100 gp",
+      "requires_attunement": "no",
+      "desc": "You learn intricate methods for magically creating a special homunculus that serves you. The item you infuse serves as the creature's heart, around which the creature's body instantly forms. \\par You determine the homunculus's appearance. Some artificers prefer mechanical-looking birds, whereas some like winged vials or miniature, animate cauldrons. \\par The homunculus is friendly to you and your companions, and it obeys your commands. See this creature's game statistics in the Homunculus Servant stat block, which uses your proficiency bonus (PB) in several places. \\par In combat, the homunculus shares your initiative count, but it takes its turn immediately after yours. It can move and use its reaction on its own, but the only action it takes on its turn is the Dodge action, unless you take a bonus action on your turn to command it to take another action. That action can be one in its stat block or some other action. If you are incapacitated, the homunculus can take any action of its choice, not just Dodge. \\par The homunculus regains 2d6 hit points if the mending spell is cast on it. If you or the homunculus dies, it vanishes. leaving its heart in its space.",
+      "page": "TCoE 21"
+    },
+    {
+      "name": "Mind Sharpener",
+      "prerequisite": "2nd-level artificer",
+      "item": "A suit of armor or robes",
+      "requires_attunement": "no",
+      "desc": "The infused item can send a jolt to the wearer to refocus their mind. The item has 4 charges. When the wearer fails a Constitution saving throw to maintain concentration on a spell, the wearer can use its reaction to expend 1 of the item's charges to succeed instead. The item regains ld4 expended charges daily at dawn.",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Radiant Weapon",
+      "prerequisite": "6th-level artificer",
+      "item": "A simple or martial weapon",
+      "requires_attunement": "yes",
+      "desc": "This magic weapon grants a +1 bonus to attack and damage rolls made with it. While holding it, the wielder can take a bonus action to cause it to shed bright light in a 30-foot radius and dim light for an additional 30 feet. The wielder can extinguish the light as a bonus action. \\par The weapon has 4 charges. As a reaction immediately after being hit by an attack, the wielder can expend 1 charge and cause the attacker to be blinded until the end of the attacker's next turn, unless the attacker succeeds on a Constitution saving throw against your spell save DC. The weapon regains ld4 expended charges daily at dawn.",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Repeating Shot",
+      "prerequisite": "2nd-level artificer",
+      "item": "A simple or martial weapon with the ammunition property",
+      "requires_attunement": "yes",
+      "desc": "This magic weapon grants a +1 bonus to attack and damage rolls made with it when it's used to make a ranged attack, and it ignores the loading property if it has it. \\par If you load no ammunition in the weapon, it produces its own, automatically creating one piece of magic ammunition when you make a ranged attack with it. The ammunition created by the weapon vanishes the instant after it hits or misses a target.",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Replicate Magic Item: Level 2",
+      "prerequisite": "2nd-level artificer",
+      "item": "see below",
+      "requires_attunement": "see below",
+      "desc": "Using this infusion, you replicate a particular magic item. You can learn this infusion multiple times; each time you do so, choose a magic item that you can make with it, picking from the Replicable Items tables. Alternatively, you can choose the magic item from among the common magic items in the game, not including potions or scrolls. \\par \\begin{tabular}{lc} \\textbf{Magic Item} & \\textbf{Attunement} \\\\  \\hline Alchemy jug & No \\\\ Bag of holding & No \\\\ Cap of water breathing & No \\\\ Goggles of night & No \\\\ Rope of climbing & No \\\\ Sending stones & No \\\\ Wand of magic detection & No \\\\ Wand of secrets & No \\\\ \\hline \\end{tabular}",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Replicate Magic Item: Level 6",
+      "prerequisite": "6th-level artificer",
+      "item": "see below",
+      "requires_attunement": "see below",
+      "desc": "Using this infusion, you replicate a particular magic item. You can learn this infusion multiple times; each time you do so, choose a magic item that you can make with it, picking from the Replicable Items tables. Alternatively, you can choose the magic item from among the common magic items in the game, not including potions or scrolls. \\par \\begin{tabular}{lc} \\textbf{Magic Item} & \\textbf{Attunement} \\\\  \\hline Boots of elvenkind & No \\\\ Cloak of elvenkind & Yes \\\\ Cloak of the manta ray & No \\\\ Eyes of charming & Yes \\\\ Gloves of thievery & No \\\\ Lantern of revealing & No \\\\ Pipes of haunting & No \\\\ Ring of water walking & No \\\\ \\hline \\end{tabular}",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Replicate Magic Item: Level 10",
+      "prerequisite": "10th-level artificer",
+      "item": "see below",
+      "requires_attunement": "see below",
+      "desc": "Using this infusion, you replicate a particular magic item. You can learn this infusion multiple times; each time you do so, choose a magic item that you can make with it, picking from the Replicable Items tables. Alternatively, you can choose the magic item from among the common magic items in the game, not including potions or scrolls. \\par \\begin{tabular}{lc} \\textbf{Magic Item} & \\textbf{Attunement} \\\\  \\hline Boots of striding and springing & Yes \\\\ Boots of the winterlands & Yes \\\\ Bracers of archery & Yes \\\\ Brooch of shielding & Yes \\\\ Cloak of protection & Yes \\\\ Eyes of the eagle & Yes \\\\ Gauntlets of ogre power & Yes \\\\ Gloves of missile snaring & Yes \\\\ Gloves of swimming and climbing & Yes \\\\ Hat of disguise & Yes \\\\ Headband of intellect & Yes \\\\ Helm of telepathy & Yes \\\\ Medallion of thoughts & Yes \\\\ Necklace of adaptation & Yes \\\\ Periapt of wound closure & Yes \\\\ Pipes of the sewers & Yes \\\\ Quiver of Ehlonna & No \\\\ Ring of jumping & Yes \\\\ Ring of mind shielding & Yes \\\\ Slippers of spider climbing & Yes \\\\ Winged boots & Yes \\\\ \\hline \\end{tabular}",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Replicate Magic Item: Level 14",
+      "prerequisite": "14th-level artificer",
+      "item": "see below",
+      "requires_attunement": "see below",
+      "desc": "Using this infusion, you replicate a particular magic item. You can learn this infusion multiple times; each time you do so, choose a magic item that you can make with it, picking from the Replicable Items tables. Alternatively, you can choose the magic item from among the common magic items in the game, not including potions or scrolls. \\par \\begin{tabular}{lc} \\textbf{Magic Item} & \\textbf{Attunement} \\\\  \\hline Amulet of health & Yes \\\\ Belt of hill giant strength & Yes \\\\ Boots of levitation & Yes \\\\ Boots of speed & Yes \\\\ Bracers of defense & Yes \\\\ Cloak of the bat & Yes \\\\ Dimensional shackles & No \\\\ Gem of seeing & Yes \\\\ Horn of blasting & No \\\\ Ring of free action & Yes \\\\ Ring of protection & Yes \\\\ Ring of the ram & Yes \\\\ \\hline \\end{tabular}",
+      "page": "TCoE 22"
+    },
+    {
+      "name": "Repulsion Shield",
+      "prerequisite": "6th-level artificer",
+      "item": "A shield",
+      "requires_attunement": "yes",
+      "desc": "A creature gains a +1 bonus to Armor Class while wielding this shield. \\par The shield has 4 charges. While holding it, the wielder can use a reaction immediately after being hit by a melee attack to expend 1 of the shield's charges and push the attacker up to 15 feet away. The shield regains ld4 expended charges daily at dawn.",
+      "page": "TCoE 23"
+    },
+    {
+      "name": "Resistant Armor",
+      "prerequisite": "6th-level artificer",
+      "item": "A suit of armor",
+      "requires_attunement": "yes",
+      "desc": "While wearing this armor, a creature has resistance to one of the following damage types, which you choose when you infuse the item: acid, cold, fire, force, lightning, necrotic, poison, psychic, radiant, or thunder.",
+      "page": "TCoE 23"
+    },
+    {
+      "name": "Returning Weapon",
+      "prerequisite": "2nd-level artificer",
+      "item": "A simple or martial weapon with the thrown property",
+      "requires_attunement": "no",
+      "desc": "This magic weapon grants a +1 bonus to attack and damage rolls made with it, and it returns to the wielder's hand immediately after it is used to make a ranged attack.",
+      "page": "TCoE 23"
+    },
+    {
+      "name": "Spell-Refueling Ring",
+      "prerequisite": "6th-level artificer",
+      "item": "A ring",
+      "requires_attunement": "yes",
+      "desc": "While wearing this ring, the creature can recover one expended spell slot as an action. The recovered slot can be of 3rd level or lower. Once used, the ring can't be used again until the next dawn.",
+      "page": "TCoE 23"
+    }
+  ],
+  "monsters": [
+    {
+      "name": "Homunculus Servant",
+      "tex_multiline": "true",
+      "size": "Tiny",
+      "type": "construct",
+      "subtype": "",
+      "alignment": "",
+      "armor_class": 13,
+      "armor_desc": "natural armor",
+      "hit_points": "1 + your intelligence modifier + artificer level",
+      "hit_dice": "",
+      "speed": "20 ft., fly 30 ft.",
+      "strength": 4,
+      "dexterity": 15,
+      "constitution": 12,
+      "intelligence": 10,
+      "wisdom": 10,
+      "charisma": 7,
+      "dexterity_save": "PB+2",
+      "perception": "PBx2",
+      "stealth": "PB+2",
+      "damage_vulnerabilities": "",
+      "damage_resistances": "",
+      "damage_immunities": "poison",
+      "condition_immunities": "exhausted, poisoned",
+      "senses": "darkvision 60 ft., passive Perception 10 + (PBx2)",
+      "languages": "understands the languages you speak",
+      "challenge_rating": "",
+      "special_abilities": [
+        {
+          "name": "Evasion",
+          "desc": "If the homunculus is subjected to an effect that allows it to make a Dexterity saving throw to take only half damage, it instead takes no damage if it succeeds on the saving throw, and only half damage if it fails. It can't use this trait if it's incapacitated.",
+          "attack_bonus": 0
+        }
+      ],
+      "actions": [
+        {
+          "name": "Force Strike",
+          "desc": "\\textit{Ranged Weapon Attack}: your spell attack modifier to hit, range 30 ft., one target you can see. \\textit{Hit}: 1d4 + PB force damage.",
+          "damage_dice": "1d4"
+        }
+      ],
+        "reactions": [
+          {
+            "name": "Channel Magic",
+            "desc": "The homunculus delivers a spell you cast that has a range of touch. The homunculus must be within 120 feet of you.",
+            "damage_dice": "1d4"
+          }
+      ],
+      "speed_json": {
+        "walk": 20,
+        "fly": 30
+      }
+    }
+  ]
+}
