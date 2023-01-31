@@ -1,0 +1,8 @@
+\defaultfontfeatures[Mrs Eaves] {
+    Extension = .otf,
+    UprightFont = MrsEavesOT-Roman,
+    BoldFont = MrsEavesOT-Bold,
+    ItalicFont = MrsEavesOT-Italic,
+    BoldItalicFont = MrsEavesOT-BoldItalic,
+    SmallCapsFont = 28479
+}
