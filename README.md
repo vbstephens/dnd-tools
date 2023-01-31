@@ -79,6 +79,8 @@ In progress
 - (MAYBE) Generate card sets based on various filters (level, school, etc.) in addition to character class.
 - (QOL) Truncate description and refer to page number on cards with so much text that the font size is too small to read comfortably.
 - (QOL) Add option to turn off generation of stat blocks associated with certain spell cards.
+- (FEATURE) Generate class spell list reference cards
+- (QOL) Print class archetype (if any) alongside class label
 ### Monster cards
 - (MAYBE) Add additional `tex_twosided` options for card splits at other points. 
 - Add commas to saving throws and skills lists.
