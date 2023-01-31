@@ -16,7 +16,7 @@
 \RequirePackage{fontspec}
 
 \setmainfont{Roboto}
-\setsansfont{Mrs Eaves OT}      % for titles
+\setsansfont{Mrs Eaves}      % for titles
 
 % -------- typesetting --------
 \RequirePackage{microtype}
@@ -66,10 +66,13 @@
 \newcommand{\@texmultiline}{\relax}
 \newcommand{\texmultiline}[1]{\gdef\@texmultiline{#1}}
 
+\newcommand{\@textwosided}{\relax}
+\newcommand{\textwosided}[1]{\gdef\@textwosided{#1}}
+
 % -------- spell card user input --------
 
-\newcommand{\classvar}{\relax}
-\newcommand{\class}[1]{\gdef\classvar{#1}}
+\newcommand{\@classvar}{\relax}
+\newcommand{\class}[1]{\edef\@classvar{#1}}
 
 \newcommand{\@archetype}{\relax}
 \newcommand{\archetype}[1]{\gdef\@archetype{#1}}
@@ -313,6 +316,11 @@
     \school{\luadirect{tex.sprint(luadata['spells'][\luaescapestring{#1}]['school'])}}
     \page{\luadirect{tex.sprint(luadata['spells'][\luaescapestring{#1}]['page'])}}
     \texmultiline{\luadirect{tex.sprint(luadata['spells'][\luaescapestring{#1}]['tex_multiline'])}}
+    \textwosided{\luadirect{tex.sprint(luadata['spells'][\luaescapestring{#1}]['tex_twosided'])}}
+
+    \luadirect{nClasses = table.getn(luadata['spells'][\luaescapestring{#1}]['class'])
+        classestab = luadata['spells'][\luaescapestring{#1}]['class']
+    }
 }%
 
 % -------- make spell cards --------
@@ -320,21 +328,21 @@
     \luadirect{getJSONdata('data/spells.json')}
 
     % set card color based on class
-    \ifthenelse{\equal{\classvar}{Artificer}}{\cardColor{artificerColor}}{%
-        \ifthenelse{\equal{\classvar}{Paladin}}{\cardColor{paladinColor}}{%
-            \ifthenelse{\equal{\classvar}{Cleric}}{\cardColor{clericColor}}{%
-                \ifthenelse{\equal{\classvar}{Wizard}}{\cardColor{wizardColor}}{%
-                    \ifthenelse{\equal{\classvar}{Sorcerer}}{\cardColor{sorcererColor}}{%
-                        \ifthenelse{\equal{\classvar}{Ranger}}{\cardColor{rangerColor}}{%
-                            \ifthenelse{\equal{\classvar}{Warlock}}{\cardColor{warlockColor}}{%
-                                \ifthenelse{\equal{\classvar}{Bard}}{\cardColor{bardColor}}{%
-                                    \ifthenelse{\equal{\classvar}{Druid}}{\cardColor{druidColor}}{%
+    \ifthenelse{\equal{\@classvar}{Artificer}}{\cardColor{artificerColor}}{%
+        \ifthenelse{\equal{\@classvar}{Paladin}}{\cardColor{paladinColor}}{%
+            \ifthenelse{\equal{\@classvar}{Cleric}}{\cardColor{clericColor}}{%
+                \ifthenelse{\equal{\@classvar}{Wizard}}{\cardColor{wizardColor}}{%
+                    \ifthenelse{\equal{\@classvar}{Sorcerer}}{\cardColor{sorcererColor}}{%
+                        \ifthenelse{\equal{\@classvar}{Ranger}}{\cardColor{rangerColor}}{%
+                            \ifthenelse{\equal{\@classvar}{Warlock}}{\cardColor{warlockColor}}{%
+                                \ifthenelse{\equal{\@classvar}{Bard}}{\cardColor{bardColor}}{%
+                                    \ifthenelse{\equal{\@classvar}{Druid}}{\cardColor{druidColor}}{%
                                         \cardColor{black}}}}}}}}}}
     \pagecolor{\@cardColor}
 
     \foreach \s in {1,2,...,\luadirect{tex.sprint(table.getn(luadata['spells']))}}{
-        \IfSubStr{\luadirect{tex.sprint(luadata['spells'][\s]['class'])}}{\classvar}{%
-            \ifthenelse{\equal{\@filterBySource}{}}{
+        \IfSubStr{\luadirect{tex.sprint(luadata['spells'][\s]['class'])}}{\@classvar}{%
+            \ifthenelse{\equal{\@filterBySource}{All}}{
                 \setSpellStats{\s}
                 \makeOneSpell%
                 \pagebreak%
@@ -361,7 +369,21 @@
                     }
                 }{}%    % end IfSubStr
             }       % end ifthenelse
-        }{}%    % end IfSubStr
+        }{
+            \ifthenelse{\equal{\@classvar}{All} \OR \equal{\@classvar}{}}{
+                \setSpellStats{\s}
+                \makeOneSpell%
+                \pagebreak%
+                \foreach \m in {1,...,\luadirect{tex.sprint(table.getn(luadata['monsters']))}}{
+                    \monsterName{\luadirect{tex.sprint(luadata['monsters'][\m]['spell'])}}
+                    \ifthenelse{\equal{\@cardName}{\@monsterName}}{
+                        \setMonsterStats{\m}
+                        \makeOneMonster%
+                        \pagebreak%
+                    }{}
+                }
+            }{}%
+        }%    % end IfSubStr
     }%      % end foreach
 }%
 
@@ -372,22 +394,23 @@
     \pagecolor{\@cardColor}
     \tcbset{colback=white,colframe=\@cardColor,size=fbox,beforeafter skip=0em}
 
-    % card title, class, level, school
+    % card title
     \begin{tcolorbox}[squeezed title=\textsc{\@cardName},colback=\@cardColor,colbacktitle=white,coltitle=black,fonttitle=\Large, halign title=center]
-        \begin{center}
-            \ifthenelse{\equal{\classvar}{All}}{%
-                \ifthenelse{\equal{\@spellClasses}{Artificer, Bard, Cleric, Druid, Paladin, Ranger, Sorcerer, Wizard}}{%
-                    \color{white}{\scriptsize \textsc{All \hfill \@level \hfill \@school}}
-                }{%
-                    \color{white}{\tiny \textsc{\@spellClasses \hfill \@level \hfill \@school}}
-                }
-            }{%
-                \color{white}{\scriptsize \textsc{\classvar \hfill \@level \hfill \@school}}
-            }%
-        \end{center}
     \end{tcolorbox}
+    % class, level, school
+    \begin{tcbraster}[raster columns=3, raster equal height, raster column skip=0.25em, raster before skip=-0.65em, raster row skip=0.25em]
+        \begin{tcolorbox}[colback=\@cardColor,colframe=\@cardColor,halign=left]
+            \color{white}{\scriptsize \textsc{\@level}}
+        \end{tcolorbox}%
+        \begin{tcolorbox}[colback=\@cardColor,colframe=\@cardColor,halign=center]
+            \color{white}{\scriptsize \textsc{\@school}}
+        \end{tcolorbox}%
+        \begin{tcolorbox}[colback=\@cardColor,colframe=\@cardColor,halign=right]
+            \color{white}{\scriptsize \textsc{\@page}}
+        \end{tcolorbox}%
+    \end{tcbraster}
     % info boxes
-    \begin{tcbraster}[raster columns=12, raster equal height, raster column skip=0.25em, raster before skip=-1em, raster row skip=0.25em]
+    \begin{tcbraster}[raster columns=12, raster equal height, raster column skip=0.25em, raster row skip=0.25em, raster before skip=-0.5em]
         % casting time
         \begin{tcolorbox}[raster multicolumn=4]
             \begin{center}
@@ -432,12 +455,23 @@
         \end{tcolorbox}
     }
     % description
-    \tcboxfit[enhanced, height fill, fit fontsize macros, size=small, bottom=0.25em, fit basedim=8pt, before={\ifthenelse{\equal{\@materials}{}}{\vskip -4pt}{}}, title=\textsc{\@page}, fonttitle=\scriptsize, colbacktitle=\@cardColor,coltitle=white, attach boxed title to bottom right, boxed title style={empty,size=fbox}]{%
-        \setlength{\parskip}{0.4em}
-        \setlength{\parindent}{0em}
-        \@descript
-        \ifthenelse{\equal{\@higherlevels}{}}{}{%
-            \par \textbf{At higher levels:} \@higherlevels%
+    \ifthenelse{\equal{\@classvar}{All}}{
+        \tcboxfit[enhanced, height fill, fit fontsize macros, size=small, bottom=0.25em, fit basedim=8pt, before={\ifthenelse{\equal{\@materials}{}}{\vskip -4pt}{}}, title=\textsc{\@spellClasses}, fonttitle=\scriptsize, colbacktitle=\@cardColor,coltitle=white, attach boxed title to bottom left, boxed title style={empty,size=fbox}]{%
+            \setlength{\parskip}{0.4em}
+            \setlength{\parindent}{0em}
+            \@descript
+            \ifthenelse{\equal{\@higherlevels}{}}{}{%
+                \par \textbf{At higher levels:} \@higherlevels%
+            }
+        }
+    }{
+        \tcboxfit[enhanced, height fill, fit fontsize macros, size=small, bottom=0.25em, fit basedim=8pt, before={\ifthenelse{\equal{\@materials}{}}{\vskip -4pt}{}}, title=\textsc{\@classvar}, fonttitle=\scriptsize, colbacktitle=\@cardColor,coltitle=white, attach boxed title to bottom left, boxed title style={empty,size=fbox}]{%
+            \setlength{\parskip}{0.4em}
+            \setlength{\parindent}{0em}
+            \@descript
+            \ifthenelse{\equal{\@higherlevels}{}}{}{%
+                \par \textbf{At higher levels:} \@higherlevels%
+            }
         }
     }
 }%
@@ -577,13 +611,13 @@
     \legendaryDesc{\luadirect{tex.sprint(luadata['monsters'][\luaescapestring{#1}]['legendary_desc'])}}
 
     \texmultiline{\luadirect{tex.sprint(luadata['monsters'][\luaescapestring{#1}]['tex_multiline'])}}
+    \textwosided{\luadirect{tex.sprint(luadata['monsters'][\luaescapestring{#1}]['tex_twosided'])}}
 }%
 
-
-\newcommand{\makeMonsterCards}{%
-    \luadirect{getJSONdata('data/monsters.json')}
+\newcommand{\makeMonsterCards}[1]{%
+    \luadirect{getJSONdata('data/#1')}
     \pagecolor{white}
-    \foreach \m in {1,2,...,\luadirect{tex.sprint(table.getn(luadata['monsters']))}}{%
+    \foreach \m in {1,...,\luadirect{tex.sprint(table.getn(luadata['monsters']))}}{%
         \setMonsterStats{\m}
         \makeOneMonster%
         \pagebreak%
@@ -602,11 +636,11 @@
     % title, size, type, alignment, CR
     \begin{tcbraster}[raster columns=24, raster after skip = -1pt]
         \ifthenelse{\equal{\@challengeRating}{}}{%
-            \begin{tcolorbox}[raster multicolumn=24,squeezed title=\@monsterName,colbacktitle=white,coltitle=darkred,fonttitle=\Large\sffamily\scshape,top=-3pt]
+            \begin{tcolorbox}[raster multicolumn=24,squeezed title=\@monsterName,colbacktitle=white,coltitle=darkred,fonttitle=\LARGE\sffamily\scshape,top=-3pt]
                 \footnotesize \textit{\@size~\@type\ifthenelse{\equal{\@subtype}{}}{}{~(\@subtype)}\ifthenelse{\equal{\@alignment}{}}{}{,~\@alignment}}
             \end{tcolorbox}
         }{%
-            \begin{tcolorbox}[raster multicolumn=20,squeezed title=\@monsterName,colbacktitle=white,coltitle=darkred,fonttitle=\Large\sffamily\scshape,top=-3pt]
+            \begin{tcolorbox}[raster multicolumn=20,squeezed title=\@monsterName,colbacktitle=white,coltitle=darkred,fonttitle=\LARGE\sffamily\scshape,top=-3pt]
                 \footnotesize \textit{\@size~\@type\ifthenelse{\equal{\@subtype}{}}{}{~(\@subtype)}\ifthenelse{\equal{\@alignment}{}}{}{,~\@alignment}}
             \end{tcolorbox}
             \begin{tcolorbox}[raster multicolumn=4,colframe=darkred]
@@ -622,7 +656,7 @@
     % info
     \begin{tcolorbox}[]
         \ifthenelse{\equal{\@texmultiline}{true}}{
-            \color{darkred} \footnotesize \textbf{AC}~\@armorClass~\ifthenelse{\equal{\@armorDesc}{}}{}{(\textit{\@armorDesc})} \par
+            \color{darkred} \footnotesize \textbf{AC}~\@armorClass~\ifthenelse{\equal{\@armorDesc}{}}{}{(\textit{\@armorDesc})} \hfill
             \textbf{HP}~\@hitPoints~\ifthenelse{\equal{\@hitDice}{}}{}{~(\@hitDice)}\par
             \textbf{Speed} \@speed
         }{%
@@ -632,7 +666,109 @@
 
     \color{darkred}{\noindent\rule{\textwidth}{1pt}}
 
-%     stats
+    \printStats
+    \vskip -10pt
+
+    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+    \vskip 3pt
+    \ifthenelse{\equal{\@textwosided}{actions}}{
+        \tcboxfit[height fill, fit fontsize macros, fit basedim=10pt]{%
+            \printInfo
+
+            \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+            \printAbilities
+        }
+        \pagebreak%
+        \tcboxfit[height fill, fit fontsize macros, fit basedim=10pt]{%
+            \printActions
+            \printReactions
+            \printBonusActions
+            \printLegendaryActions
+        }%
+    }{%
+        \tcboxfit[height fill, fit fontsize macros, fit basedim=10pt]{%
+            \printInfo
+
+            \color{darkred}{\noindent\rule{\textwidth}{1pt}}
+
+            \printAbilities
+
+            \printActions
+            \printReactions
+            \printBonusActions
+            \printLegendaryActions
+        }
+    }%
+}
+
+\newcommand{\printActions}{%
+    \setlength{\parskip}{0.4em}
+    \ifthenelse{\equal{\luadirect{tex.sprint(nActions)}}{}}{}{
+        \color{darkred}{\Large{\textsc{\sffamily{Actions}} \par \vskip -3\parskip \noindent\rule{\textwidth}{1pt}}}
+        \foreach \a in {1,...,\luadirect{tex.sprint(nActions)}}{%
+            \color{black} \textit{\textbf{\luadirect{tex.sprint(actionstab[\a]['name'])}}}~\luadirect{tex.sprint(actionstab[\a]['desc'])} \par
+        }
+    }
+}%
+
+\newcommand{\printReactions}{%
+    \setlength{\parskip}{0.4em}
+    \ifthenelse{\equal{\luadirect{tex.sprint(nReactions)}}{}}{}{
+        \color{darkred}{\Large{\textsc{\sffamily{Reactions}} \par \vskip -3\parskip \noindent\rule{\textwidth}{1pt}}}
+        \foreach \r in {1,...,\luadirect{tex.sprint(nReactions)}}{%
+            \color{black} \textit{\textbf{\luadirect{tex.sprint(reactionstab[\r]['name'])}}}~\luadirect{tex.sprint(reactionstab[\r]['desc'])} \par
+        }
+    }
+}%
+
+\newcommand{\printBonusActions}{%
+    \setlength{\parskip}{0.4em}
+    \ifthenelse{\equal{\luadirect{tex.sprint(nBonusactions)}}{}}{}{
+        \color{darkred}{\Large{\textsc{\sffamily{Bonus Actions}} \par \vskip -3\parskip \noindent\rule{\textwidth}{1pt}}}
+        \foreach \r in {1,...,\luadirect{tex.sprint(nBonusactions)}}{%
+            \color{black} \textit{\textbf{\luadirect{tex.sprint(bonusactionstab[\r]['name'])}}}~\luadirect{tex.sprint(bonusactionstab[\r]['desc'])} \par
+        }
+    }
+}%
+
+\newcommand{\printLegendaryActions}{
+    \ifthenelse{\equal{\@legendaryDesc}{}}{}{%
+            \setlength{\parskip}{0.4em}
+            \color{darkred}{\Large{\textsc{\sffamily{Legendary Actions}} \par
+            \vskip -3\parskip
+            \noindent\rule{\textwidth}{1pt}}}
+            \color{black} \@legendaryDesc \par
+            \foreach \a in {1,...,\luadirect{tex.sprint(nLegendaryActions)}}{%
+                \color{black} \textit{\textbf{\luadirect{tex.sprint(legendaryactionstab[\a]['name'])}}}~\luadirect{tex.sprint(legendaryactionstab[\a]['desc'])} \par
+            }
+    }
+}
+
+\newcommand{\printAbilities}{
+    \color{black}
+    \setlength{\parskip}{0.4em}
+    \ifthenelse{\equal{\luadirect{tex.sprint(nAbilities)}}{}}{}{%
+        \foreach \a in {1,...,\luadirect{tex.sprint(nAbilities)}}{%
+            \textit{\textbf{\luadirect{tex.sprint(abilitiestab[\a]['name'])}}}~\luadirect{tex.sprint(abilitiestab[\a]['desc'])} \par
+        }%
+    }%
+}
+
+\newcommand{\printInfo}{
+    \color{darkred} \footnotesize
+    \ifthenelse{\equal{\@STRsave}{} \AND \equal{\@DEXsave}{} \AND \equal{\@CONsave}{} \AND \equal{\@INTsave}{} \AND \equal{\@WISsave}{} \AND \equal{\@CHAsave}{}}{}{\textbf{Saving Throws}~\@savingthrows \par}
+    \ifthenelse{\equal{\@acrobatics}{} \AND \equal{\@animalhandling}{} \AND \equal{\@arcana}{} \AND \equal{\@athletics}{} \AND \equal{\@deception}{} \AND \equal{\@history}{} \AND \equal{\@insight}{} \AND \equal{\@investigation}{} \AND \equal{\@intimidation}{} \AND \equal{\@medicine}{} \AND \equal{\@nature}{} \AND \equal{\@perception}{} \AND \equal{\@performance}{} \AND \equal{\@persuasion}{} \AND \equal{\@religion}{} \AND \equal{\@sleightofhand}{} \AND \equal{\@stealth}{} \AND \equal{\@survival}{}}{}{\textbf{Skills}~\@skills \par}
+    \ifthenelse{\equal{\@dmgImmunities}{}}{}{\textbf{Damage Immunities}~\@dmgImmunities \par}
+    \ifthenelse{\equal{\@dmgResistances}{}}{}{\textbf{Damage Resistances}~\@dmgResistances \par}
+    \ifthenelse{\equal{\@dmgVulnerabilities}{}}{}{\textbf{Damage Vulnerabilities}~\@dmgVulnerabilities \par}
+    \ifthenelse{\equal{\@conditionImmunities}{}}{}{\textbf{Condition Immunities}~\@conditionImmunities \par}
+    \textbf{Senses}~\ifthenelse{\equal{\@senses}{}}{---}{\@senses} \par
+    \textbf{Languages}~\ifthenelse{\equal{\@languages}{}}{---}{\@languages} \par
+}
+
+\newcommand{\printStats}{%
     \begin{center}
         \begin{tcbraster}[raster columns=6, raster equal height, raster row skip=0pt, raster before skip=-10pt, raster after skip=-10pt]
             \begin{tcolorbox}
@@ -654,74 +790,5 @@
                 \color{darkred} \footnotesize \begin{center} \textbf{CHA} \par \@CHA~(\printMod{\@CHAmod}) \end{center}
             \end{tcolorbox}
         \end{tcbraster}
-    \end{center}
-    \vskip -10pt
-
-    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
-
-%     other info
-%    \begin{tcolorbox}
-    \tcboxfit[height fill, fit fontsize macros, fit basedim=10pt]{%
-        \color{darkred} \footnotesize
-        \ifthenelse{\equal{\@STRsave}{} \AND \equal{\@DEXsave}{} \AND \equal{\@CONsave}{} \AND \equal{\@INTsave}{} \AND \equal{\@WISsave}{} \AND \equal{\@CHAsave}{}}{}{\textbf{Saving Throws}~\@savingthrows \par}
-        \ifthenelse{\equal{\@acrobatics}{} \AND \equal{\@animalhandling}{} \AND \equal{\@arcana}{} \AND \equal{\@athletics}{} \AND \equal{\@deception}{} \AND \equal{\@history}{} \AND \equal{\@insight}{} \AND \equal{\@investigation}{} \AND \equal{\@intimidation}{} \AND \equal{\@medicine}{} \AND \equal{\@nature}{} \AND \equal{\@perception}{} \AND \equal{\@performance}{} \AND \equal{\@persuasion}{} \AND \equal{\@religion}{} \AND \equal{\@sleightofhand}{} \AND \equal{\@stealth}{} \AND \equal{\@survival}{}}{}{\textbf{Skills}~\@skills \par}
-        \ifthenelse{\equal{\@dmgImmunities}{}}{}{\textbf{Damage Immunities}~\@dmgImmunities \par}
-        \ifthenelse{\equal{\@dmgResistances}{}}{}{\textbf{Damage Resistances}~\@dmgResistances \par}
-        \ifthenelse{\equal{\@dmgVulnerabilities}{}}{}{\textbf{Damage Vulnerabilities}~\@dmgVulnerabilities \par}
-        \ifthenelse{\equal{\@conditionImmunities}{}}{}{\textbf{Condition Immunities}~\@conditionImmunities \par}
-        \textbf{Senses}~\ifthenelse{\equal{\@senses}{}}{---}{\@senses} \par
-        \textbf{Languages}~\ifthenelse{\equal{\@languages}{}}{---}{\@languages} \par
-%    \end{tcolorbox}
-
-    \color{darkred}{\noindent\rule{\textwidth}{1pt}}
-
-%    \tcboxfit[height fill, fit fontsize macros, fit basedim=8pt]{%
-
-    % abilities
-        \color{black}
-        \setlength{\parskip}{0.4em}
-        \ifthenelse{\equal{\luadirect{tex.sprint(nAbilities)}}{}}{}{%
-            \foreach \a in {1,...,\luadirect{tex.sprint(nAbilities)}}{%
-                \textit{\textbf{\luadirect{tex.sprint(abilitiestab[\a]['name'])}}}~\luadirect{tex.sprint(abilitiestab[\a]['desc'])} \par
-            }}%
-
-        % actions
-        \color{darkred}{\Large{\textsc{\sffamily{Actions}} \par \vskip -3\parskip \noindent\rule{\textwidth}{1pt}}}
-        \foreach \a in {1,...,\luadirect{tex.sprint(nActions)}}{%
-            \color{black} \textit{\textbf{\luadirect{tex.sprint(actionstab[\a]['name'])}}}~\luadirect{tex.sprint(actionstab[\a]['desc'])} \par
-        }
-
-        % reactions
-        \ifthenelse{\equal{\luadirect{tex.sprint(nReactions)}}{}}{}{
-            \color{darkred}{\Large{\textsc{\sffamily{Reactions}} \par \vskip -3\parskip \noindent\rule{\textwidth}{1pt}}}
-            \foreach \r in {1,...,\luadirect{tex.sprint(nReactions)}}{%
-                \color{black} \textit{\textbf{\luadirect{tex.sprint(reactionstab[\r]['name'])}}}~\luadirect{tex.sprint(reactionstab[\r]['desc'])} \par
-            }
-        }
-
-        % bonus actions
-        \ifthenelse{\equal{\luadirect{tex.sprint(nBonusactions)}}{}}{}{
-            \color{darkred}{\Large{\textsc{\sffamily{Bonus Actions}} \par \vskip -3\parskip \noindent\rule{\textwidth}{1pt}}}
-            \foreach \r in {1,...,\luadirect{tex.sprint(nBonusactions)}}{%
-                \color{black} \textit{\textbf{\luadirect{tex.sprint(bonusactionstab[\r]['name'])}}}~\luadirect{tex.sprint(bonusactionstab[\r]['desc'])} \par
-            }
-        }
-    }
-
-%     legendary actions
-    \ifthenelse{\equal{\@legendaryDesc}{}}{}{%
-        \pagebreak
-        \tcboxfit[height fill]{%
-            \setlength{\parskip}{0.4em}
-            \color{darkred}{\Large{\textsc{Legendary Actions} \par
-            \vskip -3\parskip
-            \noindent\rule{\textwidth}{1pt}}}
-            \color{black} \@legendaryDesc \par
-            \foreach \a in {1,...,\luadirect{tex.sprint(nLegendaryActions)}}{%
-                \color{black} \textit{\textbf{\luadirect{tex.sprint(legendaryactionstab[\a]['name'])}}}~\luadirect{tex.sprint(legendaryactionstab[\a]['desc'])} \par
-            }
-        }
-    }
+    \end{center}%
 }
-
-

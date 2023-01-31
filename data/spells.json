@@ -107,7 +107,7 @@
       "level": "1st-level",
       "level_int": 1,
       "school": "Enchantment",
-      "class": "Bard, Cleric, Druid, Ranger, Ritual Caster",
+      "class": "Bard, Cleric, Druid, Ranger",
       "archetypes": {
         "Cleric": "Nature"
       }
@@ -127,7 +127,7 @@
       "level": "2nd-level",
       "level_int": 2,
       "school": "Enchantment",
-      "class": "Bard, Druid, Ranger, Ritual Caster"
+      "class": "Bard, Druid, Ranger"
     },
     {
       "name": "Animal Shapes",
@@ -431,7 +431,7 @@
       "level": "2nd-level",
       "level_int": 2,
       "school": "Divination",
-      "class": "Cleric, Ritual Caster",
+      "class": "Cleric",
       "archetypes": {
         "Cleric": "Knowledge"
       }
@@ -949,7 +949,7 @@
       "level": "5th-level",
       "level_int": 5,
       "school": "Divination",
-      "class": "Cleric, Paladin, Ritual Caster",
+      "class": "Cleric, Paladin",
       "archetypes": {
         "Paladin": ["Devotion", "Glory"],
         "Cleric": "Order"
@@ -968,7 +968,7 @@
       "level": "5th-level",
       "level_int": 5,
       "school": "Divination",
-      "class": "Druid, Paladin, Ranger, Ritual Caster",
+      "class": "Druid, Paladin, Ranger",
       "archetypes": {
         "Paladin": "Ancients",
         "Druid": ["Arctic", "Forest"]
@@ -1585,7 +1585,7 @@
       "level": "1st-level",
       "level_int": 1,
       "school": "Divination",
-      "class": "Cleric, Druid, Paladin, Ranger, Ritual Caster"
+      "class": "Cleric, Druid, Paladin, Ranger"
     },
     {
       "name": "Detect Thoughts",
@@ -1734,7 +1734,7 @@
       "level": "4th-level",
       "level_int": 4,
       "school": "Divination",
-      "class": "Cleric, Druid, Ritual Caster",
+      "class": "Cleric, Druid",
       "archetypes": {
         "Druid": ["Forest", "Grassland"]
       }
@@ -2477,7 +2477,7 @@
       "level": "6th-level",
       "level_int": 6,
       "school": "Abjuration",
-      "class": "Cleric, Ritual Caster"
+      "class": "Cleric"
     },
     {
       "name": "Forcecage",
@@ -3530,7 +3530,7 @@
       "level": "2nd-level",
       "level_int": 2,
       "school": "Divination",
-      "class": "Bard, Druid, Ranger, Ritual Caster"
+      "class": "Bard, Druid, Ranger"
     },
     {
       "name": "Locate Creature",
@@ -4548,7 +4548,7 @@
       "level": "1st-level",
       "level_int": 1,
       "school": "Transmutation",
-      "class": "Artificer, Cleric, Druid, Paladin, Ritual Caster"
+      "class": "Artificer, Cleric, Druid, Paladin"
     },
     {
       "name": "Raise Dead",
@@ -5192,7 +5192,7 @@
       "level": "1st-level",
       "level_int": 1,
       "school": "Divination",
-      "class": "Bard, Cleric, Druid, Paladin, Ranger, Ritual Caster",
+      "class": "Bard, Cleric, Druid, Paladin, Ranger",
       "archetypes": {
         "Cleric": "Nature",
         "Paladin": "Ancients"
