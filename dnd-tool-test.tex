@@ -1,18 +1,19 @@
 %%%%%%%%%% PREAMBLE %%%%%%%%%%
 \documentclass{dnd-tools}
 
-\geometry{paperheight=3.5in,paperwidth=2.5in,margin=0.05in,bottom=0.03in}
+%\geometry{paperwidth=3in,paperheight=5in,margin=0.05in,bottom=0.03in}
+\geometry{paperwidth=2.5in,paperheight=3.5in,margin=0.05in,bottom=0.03in}
 
 % Document
 \begin{document}
 
-%    \class{Paladin}
-%    \filterBySource{}
-%    \makeSpellCards
+    \class{All}
+    \filterBySource{All}    % NOTE: will not filter by source if "All" classes specified
+    \makeSpellCards         % recommend 2.5x3.5 geometry
 
-    \class{Artificer}
-    \makeInfusionCards
+%    \class{Artificer}
+%    \makeInfusionCards     % recommend 2.5x3.5 geometry
 
-%    \makeMonsterCards
+%    \makeMonsterCards{monsters-COS.json}    % recommend 3x5 geometry
 
 \end{document}
